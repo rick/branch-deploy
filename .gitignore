@@ -4,6 +4,8 @@
 /coverage/
 /InstalledFiles
 /pkg/
+/vendor/
+!/vendor/.keep
 /spec/reports/
 /spec/examples.txt
 /test/tmp/
