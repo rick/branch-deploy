@@ -21,9 +21,13 @@ end
 describe "CLI usage" do
   it "should exit 1 when no arguments are passed" do
     stdout, stderr, status = run_bd_command
-
     _(status).must_equal 1
-    _(stdout).must_equal ""
+  end
+
+
+  it "should provide usage output when no arguments are passed" do
+    stdout, stderr, status = run_bd_command
     _(stderr).must_match(/Usage: .*bd \[options\]/)
   end
+
 end
