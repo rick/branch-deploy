@@ -8,7 +8,7 @@ unless Hash.method_defined? :except
         keys.each { |key| h[key] = true }
         keys = h
       end
-      except(*keys)
+      reject { |key, _value| keys.include? key }
     end
   end
 end
