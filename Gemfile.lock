@@ -3,6 +3,13 @@ GEM
   specs:
     ast (2.4.2)
     base64 (0.1.1)
+    debug (1.8.0)
+      irb (>= 1.5.0)
+      reline (>= 0.3.1)
+    io-console (0.6.0)
+    irb (1.8.3)
+      rdoc
+      reline (>= 0.3.8)
     json (2.6.3)
     language_server-protocol (3.17.0.3)
     minitest (5.20.0)
@@ -10,10 +17,16 @@ GEM
     parser (3.2.2.4)
       ast (~> 2.4.1)
       racc
+    psych (5.1.1.1)
+      stringio
     racc (1.7.1)
     rainbow (3.1.1)
     rake (13.0.6)
+    rdoc (6.5.0)
+      psych (>= 4.0.0)
     regexp_parser (2.8.2)
+    reline (0.3.9)
+      io-console (~> 0.5)
     rexml (3.2.6)
     rubocop (1.57.1)
       base64 (~> 0.1.1)
@@ -32,6 +45,7 @@ GEM
     rubocop-minitest (0.32.2)
       rubocop (>= 1.39, < 2.0)
     ruby-progressbar (1.13.0)
+    stringio (3.0.8)
     unicode-display_width (2.5.0)
 
 PLATFORMS
@@ -39,6 +53,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  debug
   minitest
   rake
   rubocop

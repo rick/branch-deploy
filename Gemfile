@@ -2,6 +2,7 @@
 
 source 'https://rubygems.org'
 
+gem 'debug'
 gem 'minitest'
 gem 'rake'
 gem 'rubocop'
