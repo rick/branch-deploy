@@ -1,6 +1,12 @@
 # branch-deploy
 fast branch deployments with preview diffs
 
+## Setup
+
+```
+$ script/bootstrap
+```
+
 ## Testing
 
 ```
