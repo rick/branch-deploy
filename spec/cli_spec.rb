@@ -3,7 +3,7 @@
 require 'debug'
 require 'minitest/autorun'
 require 'open3'
-require_relative './spec_helper'
+require_relative 'spec_helper'
 
 def bd_command
   File.expand_path(File.join(__dir__, '../bin/bd'))
@@ -56,7 +56,7 @@ def required_option_keys
 end
 
 def args_hash(keys)
-  keys.map { |k| options_full[k] }.to_h
+  keys.to_h { |k| options_full[k] }
 end
 
 def args_list(hash_args)
