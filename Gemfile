@@ -2,7 +2,6 @@
 
 source 'https://rubygems.org'
 
-
 group :development do
   gem 'debug'
   gem 'guard'
@@ -13,4 +12,3 @@ group :development do
   gem 'rubocop-minitest'
   gem 'rubocop-rake'
 end
-
