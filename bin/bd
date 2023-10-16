@@ -2,4 +2,4 @@
 
 ROOT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && cd .. && pwd )
 
-bundle exec ruby ${ROOT_DIR}/lib/bd_command.rb "$@"
+bundle exec ruby ${ROOT_DIR}/lib/cli.rb "$@"
