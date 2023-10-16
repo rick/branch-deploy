@@ -4,7 +4,7 @@ fast branch deployments with preview diffs
 ## Testing
 
 ```
-$ rake
+$ bundle exec rake
 
 Run options: --seed 63598
 
