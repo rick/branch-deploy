@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'debug'
 require 'minitest/autorun'
 require 'open3'
 require_relative './spec_helper'
@@ -63,7 +64,8 @@ def args_list(hash_args)
 end
 
 def to_short_arg(hash_args, key)
-  hash_args.except(key).merge(options_brief[key])
+  long_key = options_full[key].first
+  hash_args.except(long_key).merge(options_brief[key].first => options_brief[key].last)
 end
 
 # TODO: once we get something actually working internally, we will want a way to only validate arguments
@@ -79,7 +81,6 @@ describe "CLI usage" do
     _(status).must_equal 1
   end
 
-
   it "should provide usage output when no arguments are passed" do
     stdout, stderr, status = run_bd_command
     _(stderr).must_match(/Usage: .*bd \[options\]/)
@@ -93,5 +94,23 @@ describe "CLI usage" do
   it "should not provide usage output if valid arguments are passed" do
     stdout, stderr, status = run_bd_command(args_list(@valid_args_hash))
     _(stderr).must_be_empty
+  end
+
+  it "should work if short repo argument is passed" do
+    args = to_short_arg(@valid_args_hash, :repo)
+    stdout, stderr, status = run_bd_command(args_list(args))
+    _(status).must_equal 0
+  end
+
+  it "should return 1 if no repo is passed" do
+    args = args_hash(required_option_keys - [:repo])
+    stdout, stderr, status = run_bd_command(args_list(args))
+    _(status).must_equal 1
+  end
+
+  it "should provide usage output if no repo is passed" do
+    args = args_hash(required_option_keys - [:repo])
+    stdout, stderr, status = run_bd_command(args_list(args))
+    _(stderr).must_match(/Usage: .*bd \[options\]/)
   end
 end
