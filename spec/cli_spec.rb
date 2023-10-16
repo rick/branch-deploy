@@ -131,4 +131,22 @@ describe "CLI usage" do
     stdout, stderr, status = run_bd_command(args_list(args))
     _(stderr).must_match(/Usage: .*bd \[options\]/)
   end
+
+  it "should work if short host argument is passed" do
+    args = to_short_arg(@valid_args_hash, :host)
+    stdout, stderr, status = run_bd_command(args_list(args))
+    _(status).must_equal 0
+  end
+
+  it "should return 1 if no host is passed" do
+    args = args_hash(required_option_keys - [:host])
+    stdout, stderr, status = run_bd_command(args_list(args))
+    _(status).must_equal 1
+  end
+
+  it "should provide usage output if no host is passed" do
+    args = args_hash(required_option_keys - [:host])
+    stdout, stderr, status = run_bd_command(args_list(args))
+    _(stderr).must_match(/Usage: .*bd \[options\]/)
+  end
 end

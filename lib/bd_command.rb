@@ -43,7 +43,7 @@ OptionParser.new do |opts|
   options[:help] = opts.help
 end.parse!
 
-unless options[:repo] && options[:branch]
+unless options[:repo] && options[:branch] && options[:host]
   STDERR.puts "Requires --repo"
   STDERR.puts options[:help]
   exit 1
