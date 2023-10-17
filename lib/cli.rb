@@ -44,8 +44,20 @@ OptionParser.new do |opts|
   options[:help] = opts.help
 end.parse!
 
-unless options[:repo] && options[:branch] && options[:host] && options[:path]
-  warn 'Requires --repo'
+unless options[:repo] && options[:branch] && options[:path]
+  warn 'Requires --repo, --branch, and --path options.'
+  warn options[:help]
+  exit 1
+end
+
+unless options[:local] || options[:host]
+  warn 'Requires either --local or --host.'
+  warn options[:help]
+  exit 1
+end
+
+if options[:local] && options[:host]
+  warn 'Cannot specify both --local and --host.'
   warn options[:help]
   exit 1
 end

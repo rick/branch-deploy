@@ -167,4 +167,40 @@ describe 'CLI usage' do
     _, stderr, = run_bd_command(args_list(args))
     _(stderr).must_match(/Usage: .*bd \[options\]/)
   end
+
+  it 'should return 0 if short local argument is passed instead of host' do
+    args = args_hash(required_option_keys - [:host] + [:local])
+    _, _, status = run_bd_command(args_list(args))
+    _(status).must_equal 0
+  end
+
+  it 'should not provide usage output if local argument is passed instead of host' do
+    args = args_hash(required_option_keys - [:host] + [:local])
+    _, stderr, = run_bd_command(args_list(args))
+    _(stderr).must_be_empty
+  end
+
+  it 'should return 1 if no host or local is passed' do
+    args = args_hash(required_option_keys - [:host] - [:local])
+    _, _, status = run_bd_command(args_list(args))
+    _(status).must_equal 1
+  end
+
+  it 'should provide usage output if no host or local is passed' do
+    args = args_hash(required_option_keys - [:host] - [:local])
+    _, stderr, = run_bd_command(args_list(args))
+    _(stderr).must_match(/Usage: .*bd \[options\]/)
+  end
+
+  it 'should return 1 if both local and host are passed' do
+    args = args_hash(required_option_keys + [:local])
+    _, _, status = run_bd_command(args_list(args))
+    _(status).must_equal 1
+  end
+
+  it 'should provide usage output if both local and host are passed' do
+    args = args_hash(required_option_keys + [:local])
+    _, stderr, = run_bd_command(args_list(args))
+    _(stderr).must_match(/Usage: .*bd \[options\]/)
+  end
 end
