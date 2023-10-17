@@ -251,4 +251,76 @@ describe 'CLI usage' do
     _, stderr, = run_bd_command(args_list(args))
     _(stderr).must_match(/Usage: .*bd \[options\]/)
   end
+
+  it 'should exit with status 0 if ssh-options argument is passed' do
+    args = args_hash(required_option_keys + [:ssh_options])
+    _, _, status = run_bd_command(args_list(args))
+    _(status).must_equal 0
+  end
+
+  it 'should exit with status 0 if short ssh-options argument is passed' do
+    args = to_short_arg(@valid_args_hash, :ssh_options)
+    _, _, status = run_bd_command(args_list(args))
+    _(status).must_equal 0
+  end
+
+  it 'should not provide usage output if ssh-options argument is passed' do
+    args = args_hash(required_option_keys + [:ssh_options])
+    _, stderr, = run_bd_command(args_list(args))
+    _(stderr).must_be_empty
+  end
+
+  it 'should exit with status 0 if temp-path argument is passed' do
+    args = args_hash(required_option_keys + [:temp_path])
+    _, _, status = run_bd_command(args_list(args))
+    _(status).must_equal 0
+  end
+
+  it 'should exit with status 0 if short temp-path argument is passed' do
+    args = to_short_arg(@valid_args_hash, :temp_path)
+    _, _, status = run_bd_command(args_list(args))
+    _(status).must_equal 0
+  end
+
+  it 'should not provide usage output if temp-path argument is passed' do
+    args = args_hash(required_option_keys + [:temp_path])
+    _, stderr, = run_bd_command(args_list(args))
+    _(stderr).must_be_empty
+  end
+
+  it 'should exit with status 0 if verbose argument is passed' do
+    args = args_hash(required_option_keys + [:verbose])
+    _, _, status = run_bd_command(args_list(args))
+    _(status).must_equal 0
+  end
+
+  it 'should exit with status 0 if short verbose argument is passed' do
+    args = to_short_arg(@valid_args_hash, :verbose)
+    _, _, status = run_bd_command(args_list(args))
+    _(status).must_equal 0
+  end
+
+  it 'should not provide usage output if verbose argument is passed' do
+    args = args_hash(required_option_keys + [:verbose])
+    _, stderr, = run_bd_command(args_list(args))
+    _(stderr).must_be_empty
+  end
+
+  it 'should exit with status 0 if help argument is passed' do
+    args = args_hash(required_option_keys + [:help])
+    _, _, status = run_bd_command(args_list(args))
+    _(status).must_equal 0
+  end
+
+  it 'should exit with status 0 if short help argument is passed' do
+    args = to_short_arg(@valid_args_hash, :help)
+    _, _, status = run_bd_command(args_list(args))
+    _(status).must_equal 0
+  end
+
+  it 'should provide usage output if help argument is passed' do
+    args = args_hash(required_option_keys + [:help])
+    _, stderr, = run_bd_command(args_list(args))
+    _(stderr).must_match(/Usage: .*bd \[options\]/)
+  end
 end
