@@ -2,7 +2,13 @@
 
 source 'https://rubygems.org'
 
-gem 'minitest'
-gem 'rake'
-gem 'rubocop'
-gem 'rubocop-minitest'
+group :development do
+  gem 'debug'
+  gem 'guard'
+  gem 'guard-minitest'
+  gem 'minitest'
+  gem 'rake'
+  gem 'rubocop'
+  gem 'rubocop-minitest'
+  gem 'rubocop-rake'
+end

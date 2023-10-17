@@ -1,0 +1,5 @@
+#!/bin/bash
+
+ROOT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && cd .. && pwd )
+
+bundle exec ruby ${ROOT_DIR}/lib/cli.rb "$@"

@@ -1,0 +1,19 @@
+require:
+  - rubocop-rake
+  - rubocop-minitest
+
+AllCops:
+  NewCops: enable
+
+Style/HashExcept:
+  Enabled: false
+
+Style/MapToHash:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
