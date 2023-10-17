@@ -168,7 +168,7 @@ describe 'CLI usage' do
     _(stderr).must_match(/Usage: .*bd \[options\]/)
   end
 
-  it 'should return 0 if short local argument is passed instead of host' do
+  it 'should return 0 if local argument is passed instead of host' do
     args = args_hash(required_option_keys - [:host] + [:local])
     _, _, status = run_bd_command(args_list(args))
     _(status).must_equal 0
@@ -200,6 +200,54 @@ describe 'CLI usage' do
 
   it 'should provide usage output if both local and host are passed' do
     args = args_hash(required_option_keys + [:local])
+    _, stderr, = run_bd_command(args_list(args))
+    _(stderr).must_match(/Usage: .*bd \[options\]/)
+  end
+
+  it 'should return 0 if diff argument is passed' do
+    args = args_hash(required_option_keys + [:diff])
+    _, _, status = run_bd_command(args_list(args))
+    _(status).must_equal 0
+  end
+
+  it 'should return 0 if short diff argument is passed' do
+    args = to_short_arg(@valid_args_hash, :diff)
+    _, _, status = run_bd_command(args_list(args))
+    _(status).must_equal 0
+  end
+
+  it 'should not provide usage output if diff argument is passed' do
+    args = args_hash(required_option_keys + [:diff])
+    _, stderr, = run_bd_command(args_list(args))
+    _(stderr).must_be_empty
+  end
+
+  it 'should return 0 if confirm argument is passed' do
+    args = args_hash(required_option_keys + [:confirm])
+    _, _, status = run_bd_command(args_list(args))
+    _(status).must_equal 0
+  end
+
+  it 'should return 0 if short confirm argument is passed' do
+    args = to_short_arg(@valid_args_hash, :confirm)
+    _, _, status = run_bd_command(args_list(args))
+    _(status).must_equal 0
+  end
+
+  it 'should not provide usage output if confirm argument is passed' do
+    args = args_hash(required_option_keys + [:confirm])
+    _, stderr, = run_bd_command(args_list(args))
+    _(stderr).must_be_empty
+  end
+
+  it 'should return 1 if both confirm and diff arguments are passed' do
+    args = args_hash(required_option_keys + %i[confirm diff])
+    _, _, status = run_bd_command(args_list(args))
+    _(status).must_equal 1
+  end
+
+  it 'should provide usage output if both confirm and diff arguments are passed' do
+    args = args_hash(required_option_keys + %i[confirm diff])
     _, stderr, = run_bd_command(args_list(args))
     _(stderr).must_match(/Usage: .*bd \[options\]/)
   end

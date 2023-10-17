@@ -61,3 +61,9 @@ if options[:local] && options[:host]
   warn options[:help]
   exit 1
 end
+
+if options[:confirm] && options[:diff]
+  warn 'Cannot specify both --confirm and --diff.'
+  warn options[:help]
+  exit 1
+end
