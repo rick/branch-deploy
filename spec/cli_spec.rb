@@ -86,7 +86,7 @@ describe 'CLI usage' do
     _(stderr).must_match(/Usage: .*bd \[options\]/)
   end
 
-  it 'should return 0 if valid arguments are passed' do
+  it 'should exit with status 0 if valid arguments are passed' do
     _, _, status = run_bd_command(args_list(@valid_args_hash))
     _(status).must_equal 0
   end
@@ -102,7 +102,7 @@ describe 'CLI usage' do
     _(status).must_equal 0
   end
 
-  it 'should return 1 if no repo is passed' do
+  it 'should exit with status 1 if no repo is passed' do
     args = args_hash(required_option_keys - [:repo])
     _, _, status = run_bd_command(args_list(args))
     _(status).must_equal 1
@@ -120,7 +120,7 @@ describe 'CLI usage' do
     _(status).must_equal 0
   end
 
-  it 'should return 1 if no branch is passed' do
+  it 'should exit with status 1 if no branch is passed' do
     args = args_hash(required_option_keys - [:branch])
     _, _, status = run_bd_command(args_list(args))
     _(status).must_equal 1
@@ -138,7 +138,7 @@ describe 'CLI usage' do
     _(status).must_equal 0
   end
 
-  it 'should return 1 if no host is passed' do
+  it 'should exit with status 1 if no host is passed' do
     args = args_hash(required_option_keys - [:host])
     _, _, status = run_bd_command(args_list(args))
     _(status).must_equal 1
@@ -156,7 +156,7 @@ describe 'CLI usage' do
     _(status).must_equal 0
   end
 
-  it 'should return 1 if no path is passed' do
+  it 'should exit with status 1 if no path is passed' do
     args = args_hash(required_option_keys - [:path])
     _, _, status = run_bd_command(args_list(args))
     _(status).must_equal 1
@@ -168,7 +168,7 @@ describe 'CLI usage' do
     _(stderr).must_match(/Usage: .*bd \[options\]/)
   end
 
-  it 'should return 0 if local argument is passed instead of host' do
+  it 'should exit with status 0 if local argument is passed instead of host' do
     args = args_hash(required_option_keys - [:host] + [:local])
     _, _, status = run_bd_command(args_list(args))
     _(status).must_equal 0
@@ -180,7 +180,7 @@ describe 'CLI usage' do
     _(stderr).must_be_empty
   end
 
-  it 'should return 1 if no host or local is passed' do
+  it 'should exit with status 1 if no host or local is passed' do
     args = args_hash(required_option_keys - [:host] - [:local])
     _, _, status = run_bd_command(args_list(args))
     _(status).must_equal 1
@@ -192,7 +192,7 @@ describe 'CLI usage' do
     _(stderr).must_match(/Usage: .*bd \[options\]/)
   end
 
-  it 'should return 1 if both local and host are passed' do
+  it 'should exit with status 1 if both local and host are passed' do
     args = args_hash(required_option_keys + [:local])
     _, _, status = run_bd_command(args_list(args))
     _(status).must_equal 1
@@ -204,13 +204,13 @@ describe 'CLI usage' do
     _(stderr).must_match(/Usage: .*bd \[options\]/)
   end
 
-  it 'should return 0 if diff argument is passed' do
+  it 'should exit with status 0 if diff argument is passed' do
     args = args_hash(required_option_keys + [:diff])
     _, _, status = run_bd_command(args_list(args))
     _(status).must_equal 0
   end
 
-  it 'should return 0 if short diff argument is passed' do
+  it 'should exit with status 0 if short diff argument is passed' do
     args = to_short_arg(@valid_args_hash, :diff)
     _, _, status = run_bd_command(args_list(args))
     _(status).must_equal 0
@@ -222,13 +222,13 @@ describe 'CLI usage' do
     _(stderr).must_be_empty
   end
 
-  it 'should return 0 if confirm argument is passed' do
+  it 'should exit with status 0 if confirm argument is passed' do
     args = args_hash(required_option_keys + [:confirm])
     _, _, status = run_bd_command(args_list(args))
     _(status).must_equal 0
   end
 
-  it 'should return 0 if short confirm argument is passed' do
+  it 'should exit with status 0 if short confirm argument is passed' do
     args = to_short_arg(@valid_args_hash, :confirm)
     _, _, status = run_bd_command(args_list(args))
     _(status).must_equal 0
@@ -240,7 +240,7 @@ describe 'CLI usage' do
     _(stderr).must_be_empty
   end
 
-  it 'should return 1 if both confirm and diff arguments are passed' do
+  it 'should exit with status 1 if both confirm and diff arguments are passed' do
     args = args_hash(required_option_keys + %i[confirm diff])
     _, _, status = run_bd_command(args_list(args))
     _(status).must_equal 1
