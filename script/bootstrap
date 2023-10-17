@@ -1,6 +1,8 @@
 #!/bin/sh
 
 # script/bootstrap: Resolve all dependencies that the application requires to run.
+#
+# Note: installs pre-commit git hook to run linters before each commit.
 
 set -e
 
