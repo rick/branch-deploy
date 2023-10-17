@@ -2,11 +2,14 @@ require:
   - rubocop-rake
   - rubocop-minitest
 
+AllCops:
+  NewCops: enable
+
 Style/HashExcept:
   Enabled: false
 
-AllCops:
-  NewCops: enable
+Style/MapToHash:
+  Enabled: false
 
 Metrics/BlockLength:
   Enabled: false
