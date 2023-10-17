@@ -5,20 +5,6 @@ require 'minitest/autorun'
 require 'open3'
 require_relative 'spec_helper'
 
-def bd_command
-  File.expand_path(File.join(__dir__, '../bin/bd'))
-end
-
-def run_bd_command(args = [])
-  if args.empty?
-    stdout, stderr, status = Open3.capture3(bd_command)
-  else
-    stdout, stderr, status = Open3.capture3(bd_command, *args)
-  end
-
-  [stdout, stderr, status.exitstatus]
-end
-
 def options_full
   {
     repo: ['--repo', 'git@github.com:rick/branch-deploy.git'],
