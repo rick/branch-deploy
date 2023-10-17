@@ -56,7 +56,7 @@ def required_option_keys
 end
 
 def args_hash(keys)
-  keys.to_h { |k| options_full[k] }
+  keys.map { |k| [options_full[k].first, options_full[k].last] }.to_h
 end
 
 def args_list(hash_args)
