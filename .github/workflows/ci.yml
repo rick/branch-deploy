@@ -27,6 +27,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: build acceptance test docker image
-      run: docker build -t branch-deploy-acceptance < ./spec/Dockerfile
+      run: docker build -t branch-deploy-acceptance -f ./spec/Dockerfile .
     - name: Run tests
       run: docker run -it -w/app/branch-deploy bundle exec rake
