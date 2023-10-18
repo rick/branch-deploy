@@ -27,5 +27,5 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Run tests
-        run: docker run -i -w/app/branch-deploy rick/branch-deploy-acceptance:latest bundle exec rake
+        run: docker run -i -w/app/branch-deploy rick/branch-deploy-acceptance bundle exec rake
 
