@@ -26,11 +26,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@5cfe23c062c0aac352e765b1b7cc12ea5255ccc4
-      with:
-        ruby-version: ${{ matrix.ruby-version }}
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: build acceptance test docker image
+      run: docker build -t branch-deploy-acceptance < ./spec/Dockerfile
     - name: Run tests
-      run: bundle exec rake
-
+      run: docker run -it -w/app/branch-deploy bundle exec rake
