@@ -29,4 +29,4 @@ jobs:
     - name: build acceptance test docker image
       run: docker build -t branch-deploy-acceptance -f ./spec/Dockerfile .
     - name: Run tests
-      run: docker run -i -w/app/branch-deploy bundle exec rake
+      run: docker run -i -w/app/branch-deploy branch-deploy-acceptance bundle exec rake
