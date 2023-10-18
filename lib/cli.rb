@@ -14,9 +14,6 @@ OptionParser.new do |opts|
   opts.on('-h', '--host HOSTNAME', 'Target host for remote deployment [REQUIRED, or --local]') do |h|
     options[:host] = h
   end
-  opts.on('-l', '--local', 'Deploy to the local host (default: false) [REQUIRED, or --host]') do |l|
-    options[:local] = l
-  end
   opts.on('-p', '--path PATH', 'Deployment path on target host [REQUIRED]') do |p|
     options[:path] = p
   end
