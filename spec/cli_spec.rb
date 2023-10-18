@@ -165,6 +165,13 @@ describe 'CLI usage' do
     _(stderr).must_be_empty
   end
 
+  it 'should work if short local argument is passed instead of host' do
+    long_hash = args_hash(required_option_keys - [:host] + [:local])
+    args = to_short_arg(long_hash, :local)
+    _, _, status = run_bd_command(args_list(args))
+    _(status).must_equal 0
+  end
+
   it 'should exit with status 1 if no host or local is passed' do
     args = args_hash(required_option_keys - [:host] - [:local])
     _, _, status = run_bd_command(args_list(args))
