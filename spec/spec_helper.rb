@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'open3'
+
 unless Hash.method_defined? :except
   class Hash
     def except(*keys)

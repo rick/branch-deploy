@@ -2,7 +2,6 @@
 
 require 'debug'
 require 'minitest/autorun'
-require 'open3'
 require_relative 'spec_helper'
 
 def options_full
