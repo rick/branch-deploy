@@ -2,22 +2,7 @@
 
 require 'debug'
 require 'minitest/autorun'
-require 'open3'
 require_relative 'spec_helper'
-
-def bd_command
-  File.expand_path(File.join(__dir__, '../bin/bd'))
-end
-
-def run_bd_command(args = [])
-  if args.empty?
-    stdout, stderr, status = Open3.capture3(bd_command)
-  else
-    stdout, stderr, status = Open3.capture3(bd_command, *args)
-  end
-
-  [stdout, stderr, status.exitstatus]
-end
 
 def options_full
   {
@@ -178,6 +163,13 @@ describe 'CLI usage' do
     args = args_hash(required_option_keys - [:host] + [:local])
     _, stderr, = run_bd_command(args_list(args))
     _(stderr).must_be_empty
+  end
+
+  it 'should work if short local argument is passed instead of host' do
+    long_hash = args_hash(required_option_keys - [:host] + [:local])
+    args = to_short_arg(long_hash, :local)
+    _, _, status = run_bd_command(args_list(args))
+    _(status).must_equal 0
   end
 
   it 'should exit with status 1 if no host or local is passed' do

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # script/bootstrap: Resolve all dependencies that the application requires to run.
 #
@@ -16,18 +16,22 @@ if [ -f "Brewfile" ] && [ "$(uname -s)" = "Darwin" ]; then
   }
 fi
 
-if [ -f ".ruby-version" ] && [ -z "$(rbenv version-name 2>/dev/null)" ]; then
-  echo "==> Installing Ruby…"
-  rbenv install --skip-existing
-  command -v bundle >/dev/null 2>&1  || {
-    gem install bundler
-    rbenv rehash
-  }
+if command -v rbenv &> /dev/null; then
+  if [ -f ".ruby-version" ] && [ -z "$(rbenv version-name 2>/dev/null)" ]; then
+    echo "==> Installing Ruby…"
+    rbenv install --skip-existing
+    command -v bundle >/dev/null 2>&1  || {
+      gem install bundler
+      rbenv rehash
+    }
+  fi
 fi
 
-if [ ! -e "${ROOT_DIR}/.git/hooks/pre-commit" ]; then
+if [ ! -L "${ROOT_DIR}/.git/hooks/pre-commit" ]; then
+  if [ -f "${ROOT_DIR}/.git/hooks/pre-commit" ]; then
     echo "Creating pre-commit hook in .git/hooks/"
     ln -s "${ROOT_DIR}/hooks/pre-commit" "${ROOT_DIR}/.git/hooks/pre-commit"
+  fi
 fi
 
 if [ -f "Gemfile" ]; then
