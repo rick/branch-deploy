@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # script/test: run the test suite
 
@@ -7,10 +7,34 @@ set -e
 ROOT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && cd .. && pwd )
 cd "$ROOT_DIR"
 
-# when no arguments passed
+cleanup() {
+  trap - EXIT
+
+  if [ -n "$CONTAINER_NEEDS_SHUTDOWN" ]; then
+    docker stop ${CONTAINER} >/dev/null
+  fi
+  unset CONTAINER_NEEDS_SHUTDOWN
+}
+trap cleanup EXIT
+
+# make sure our acceptance test container is built and running
+docker build -t branch-deploy-acceptance -f ${ROOT_DIR}/spec/Dockerfile .
+CONTAINER=$(docker run --detach -h branchdeploy --rm -it -p 8822:22 branch-deploy-acceptance)
+
+export CONTAINER_NEEDS_SHUTDOWN="true"
+
 if [ $# -eq 0 ]; then
-  # run all tests
-  bundle exec rake spec
+  # when no arguments passed, run all tests
+  command="cd /app/branch-deploy && bundle exec rake"
 else
-  bundle exec ruby -Ilib:spec "$@"
+  # when arguments passed, run only those tests specified
+  command="cd /app/branch-deploy && bundle exec ruby -Ilib:spec $@"
 fi
+
+docker exec ${CONTAINER} sh -c "${command}" && exitcode=$? || exitcode=$?
+
+# shut down the container
+cleanup
+
+# return the saved exit code from the test run
+exit $exitcode
