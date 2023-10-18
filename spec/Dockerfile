@@ -14,13 +14,6 @@ RUN apt-get update && apt-get install -y \
     vim \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
-COPY "./" "/app/branch-deploy/"
-
-WORKDIR /app/branch-deploy
-RUN gem install bundler
-RUN bundle install
-
 # Generate SSH key and copy to authorized keys
 RUN ssh-keygen -q -f /root/.ssh/id_rsa -N ""
 RUN cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
@@ -34,5 +27,15 @@ EOF
 # Set up SSH server
 RUN mkdir -p /run/sshd
 RUN echo 'root:test123' | chpasswd
+
+COPY "Gemfile" "/app/branch-deploy/"
+COPY "Gemfile.lock" "/app/branch-deploy/"
+COPY "script/bootstrap" "/app/branch-deploy/script/"
+
+WORKDIR /app/branch-deploy
+RUN script/bootstrap
+
+COPY "./" "/app/branch-deploy/"
+
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D", "-o", "ListenAddress=0.0.0.0", "-o", "PermitRootLogin=yes", "-o", "PasswordAuthentication=yes"]
