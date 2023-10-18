@@ -25,7 +25,7 @@ if [ -f ".ruby-version" ] && [ -z "$(rbenv version-name 2>/dev/null)" ]; then
   }
 fi
 
-if [ ! -e "${ROOT_DIR}/.git/hooks/pre-commit" ]; then
+if [ ! -L "${ROOT_DIR}/.git/hooks/pre-commit" ]; then
     echo "Creating pre-commit hook in .git/hooks/"
     ln -s "${ROOT_DIR}/hooks/pre-commit" "${ROOT_DIR}/.git/hooks/pre-commit"
 fi
