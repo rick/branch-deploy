@@ -28,7 +28,7 @@ class Deployer
     commands = []
     commands += create_tempdir
     commands += shallow_clone
-    commands += get_changed_files
+    commands += fetch_changed_files
     commands += rsync_files
     commands += remove_tempdir
     commands.flatten.compact.join(' && ')
@@ -54,7 +54,7 @@ class Deployer
     ]
   end
 
-  def changed_files
+  def fetch_changed_files
     # TODO: this will be via rsync diff between the checkout and the --path
     []
   end
