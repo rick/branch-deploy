@@ -26,12 +26,10 @@ class Runner
     options[:host]
   end
 
-  def ssh_options?
-    !!options[:ssh_options]
-  end
-
   def ssh_options
-    Shellwords.escape(options[:ssh_options]) if options[:ssh_options]
+    return unless options[:ssh_options]
+
+    @ssh_options ||= Shellwords.escape(options[:ssh_options])
   end
 
   def run
@@ -59,14 +57,15 @@ class Runner
   def ssh(cmd)
     args = [host]
     args << '-v' if debugging?
-    args << ssh_options if ssh_options?
+    args << ssh_options if ssh_options
     args << prep_shell_command(cmd)
     puts "Running: ssh #{args.join(' ')}" if debugging?
     system('ssh', *args)
   end
 
   def shell(cmd)
-    puts "Running command locally: [#{cmd}]" if debugging?
-    system('bash', '-c', prep_shell_command(cmd))
+    prepped_command = prep_shell_command(cmd)
+    puts "Running locally: [#{prepped_command}]" if debugging?
+    system('bash', '-c', prepped_command)
   end
 end
