@@ -1,6 +1,8 @@
 # branch-deploy
 
+This software is under active development. This is not working software.
 
+For more information, see [the initial roadmap](https://github.com/rick/branch-deploy/issues/4).
 
 ## Setup
 
