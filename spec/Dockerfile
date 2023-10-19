@@ -19,6 +19,7 @@ RUN ssh-keygen -q -f /root/.ssh/id_rsa -N ""
 RUN cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
 
 COPY <<EOF /root/.ssh/config
+LogLevel ERROR
 Host *
     StrictHostKeyChecking accept-new
     UserKnownHostsFile=/dev/null
