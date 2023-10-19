@@ -31,7 +31,7 @@ OptionParser.new do |opts|
           "Flags passed to the 'ssh' command for remote deployment (default: \"\")") do |s|
     options[:ssh_options] = s
   end
-  opts.on('-t', '--temp-path', 'Base path for tempdir creation on deployment host (default: OS default)') do |t|
+  opts.on('-t', '--temp-path PATH', 'Base path for tempdir creation on deployment host (default: OS default)') do |t|
     options[:temp_path] = t
   end
   opts.on('-v', '--verbose', 'Run verbosely') do |v|
