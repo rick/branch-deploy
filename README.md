@@ -13,16 +13,16 @@ $ script/bootstrap
 ```
 $ bd --help
 Usage: bd [options]
-    -r, --repo REPOSITORY            Repository passed to 'git clone' command on deployment host [REQUIRED]
+    -r, --repo REPO                  Repository passed to 'git clone' command on deployment host [REQUIRED]
     -b, --branch BRANCH              Branch name to deploy [REQUIRED]
-    -h, --host HOSTNAME              Target host for remote deployment [REQUIRED, or --local]
+        --host HOSTNAME              Target host for remote deployment [REQUIRED, or --local]
     -l, --local                      Deploy to the local host (default: false) [REQUIRED, or --host]
     -p, --path PATH                  Deployment path on target host [REQUIRED]
-    -d, --diff                       Return diff output for proposed changes, do not deploy (default: true)
-    -c, --confirm                    Confirm deployment -- actually update files (default: false)
+    -c, --changes                    Output changes for proposed deployment, do not deploy (default: true)
+    -d, --deploy                     Perform deploy -- actually update files (default: false)
     -s, --ssh-options OPTIONS        Flags passed to the 'ssh' command for remote deployment (default: "")
     -t, --temp-path                  Base path for tempdir creation on deployment host (default: OS default)
-    -v, --verbose                    Run verbosely (default: false)
+    -v, --verbose                    Run verbosely
     -h, --help                       Prints this help
 ```
 

@@ -20,11 +20,11 @@ OptionParser.new do |opts|
   opts.on('-p', '--path PATH', 'Deployment path on target host [REQUIRED]') do |p|
     options[:path] = p
   end
-  opts.on('-d', '--diff', 'Return diff output for proposed changes, do not deploy (default: true)') do |d|
-    options[:diff] = d
+  opts.on('-c', '--changes', 'Output changes for proposed deployment, do not deploy (default: true)') do |d|
+    options[:changes] = d
   end
-  opts.on('-c', '--confirm', 'Confirm deployment -- actually update files (default: false)') do |c|
-    options[:confirm] = c
+  opts.on('-d', '--deploy', 'Perform deploy -- actually update files (default: false)') do |c|
+    options[:deploy] = c
   end
   opts.on('-s', '--ssh-options OPTIONS',
           "Flags passed to the 'ssh' command for remote deployment (default: \"\")") do |s|
@@ -62,8 +62,8 @@ if options[:local] && options[:host]
   exit 1
 end
 
-if options[:confirm] && options[:diff]
-  warn 'Cannot specify both --confirm and --diff.'
+if options[:deploy] && options[:changes]
+  warn 'Cannot specify both --deploy and --changes.'
   warn options[:help]
   exit 1
 end

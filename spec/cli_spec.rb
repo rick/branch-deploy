@@ -11,8 +11,8 @@ def options_full
     host: ['--host', 'example.com'],
     local: ['--local'],
     path: ['--path', '/var/www/branch-deploy'],
-    diff: ['--diff'],
-    confirm: ['--confirm'],
+    changes: ['--changes'],
+    deploy: ['--deploy'],
     ssh_options: ['--ssh-options', '-p 2222'],
     temp_path: ['--temp-path', '/tmp'],
     verbose: ['--verbose'],
@@ -27,8 +27,8 @@ def options_brief
     host: ['-h', 'example.com'],
     local: ['-l'],
     path: ['-p', '/var/www/branch-deploy'],
-    diff: ['-d'],
-    confirm: ['-c'],
+    changes: ['-c'],
+    deploy: ['-d'],
     ssh_options: ['-s', '-p 2222'],
     temp_path: ['-t', '/tmp'],
     verbose: ['-v'],
@@ -196,50 +196,50 @@ describe 'CLI usage' do
     _(stderr).must_match(/Usage: .*bd \[options\]/)
   end
 
-  it 'should exit with status 0 if diff argument is passed' do
-    args = args_hash(required_option_keys + [:diff])
+  it 'should exit with status 0 if changes argument is passed' do
+    args = args_hash(required_option_keys + [:changes])
     _, _, status = run_bd_command(args_list(args))
     _(status).must_equal 0
   end
 
-  it 'should exit with status 0 if short diff argument is passed' do
-    args = to_short_arg(@valid_args_hash, :diff)
+  it 'should exit with status 0 if short changes argument is passed' do
+    args = to_short_arg(@valid_args_hash, :changes)
     _, _, status = run_bd_command(args_list(args))
     _(status).must_equal 0
   end
 
-  it 'should not provide usage output if diff argument is passed' do
-    args = args_hash(required_option_keys + [:diff])
+  it 'should not provide usage output if changes argument is passed' do
+    args = args_hash(required_option_keys + [:changes])
     _, stderr, = run_bd_command(args_list(args))
     _(stderr).must_be_empty
   end
 
-  it 'should exit with status 0 if confirm argument is passed' do
-    args = args_hash(required_option_keys + [:confirm])
+  it 'should exit with status 0 if deploy argument is passed' do
+    args = args_hash(required_option_keys + [:deploy])
     _, _, status = run_bd_command(args_list(args))
     _(status).must_equal 0
   end
 
-  it 'should exit with status 0 if short confirm argument is passed' do
-    args = to_short_arg(@valid_args_hash, :confirm)
+  it 'should exit with status 0 if short deploy argument is passed' do
+    args = to_short_arg(@valid_args_hash, :deploy)
     _, _, status = run_bd_command(args_list(args))
     _(status).must_equal 0
   end
 
-  it 'should not provide usage output if confirm argument is passed' do
-    args = args_hash(required_option_keys + [:confirm])
+  it 'should not provide usage output if deploy argument is passed' do
+    args = args_hash(required_option_keys + [:deploy])
     _, stderr, = run_bd_command(args_list(args))
     _(stderr).must_be_empty
   end
 
-  it 'should exit with status 1 if both confirm and diff arguments are passed' do
-    args = args_hash(required_option_keys + %i[confirm diff])
+  it 'should exit with status 1 if both deploy and changes arguments are passed' do
+    args = args_hash(required_option_keys + %i[deploy changes])
     _, _, status = run_bd_command(args_list(args))
     _(status).must_equal 1
   end
 
-  it 'should provide usage output if both confirm and diff arguments are passed' do
-    args = args_hash(required_option_keys + %i[confirm diff])
+  it 'should provide usage output if both deploy and changes arguments are passed' do
+    args = args_hash(required_option_keys + %i[deploy changes])
     _, stderr, = run_bd_command(args_list(args))
     _(stderr).must_match(/Usage: .*bd \[options\]/)
   end
