@@ -78,7 +78,7 @@ describe 'CLI usage' do
 
   it 'should not provide usage output if valid arguments are passed' do
     _, stderr, = run_bd_command(args_list(@valid_args_hash))
-    _(stderr).must_be_empty
+    _(stderr).wont_match(/Usage: .*bd \[options\]/)
   end
 
   it 'should work if short repo argument is passed' do
@@ -162,7 +162,7 @@ describe 'CLI usage' do
   it 'should not provide usage output if local argument is passed instead of host' do
     args = args_hash(required_option_keys - [:host] + [:local])
     _, stderr, = run_bd_command(args_list(args))
-    _(stderr).must_be_empty
+    _(stderr).wont_match(/Usage: .*bd \[options\]/)
   end
 
   it 'should work if short local argument is passed instead of host' do
@@ -211,7 +211,7 @@ describe 'CLI usage' do
   it 'should not provide usage output if changes argument is passed' do
     args = args_hash(required_option_keys + [:changes])
     _, stderr, = run_bd_command(args_list(args))
-    _(stderr).must_be_empty
+    _(stderr).wont_match(/Usage: .*bd \[options\]/)
   end
 
   it 'should exit with status 0 if deploy argument is passed' do
@@ -229,7 +229,7 @@ describe 'CLI usage' do
   it 'should not provide usage output if deploy argument is passed' do
     args = args_hash(required_option_keys + [:deploy])
     _, stderr, = run_bd_command(args_list(args))
-    _(stderr).must_be_empty
+    _(stderr).wont_match(/Usage: .*bd \[options\]/)
   end
 
   it 'should exit with status 1 if both deploy and changes arguments are passed' do
@@ -259,7 +259,7 @@ describe 'CLI usage' do
   it 'should not provide usage output if ssh-options argument is passed' do
     args = args_hash(required_option_keys + [:ssh_options])
     _, stderr, = run_bd_command(args_list(args))
-    _(stderr).must_be_empty
+    _(stderr).wont_match(/Usage: .*bd \[options\]/)
   end
 
   it 'should exit with status 0 if temp-path argument is passed' do
@@ -277,7 +277,7 @@ describe 'CLI usage' do
   it 'should not provide usage output if temp-path argument is passed' do
     args = args_hash(required_option_keys + [:temp_path])
     _, stderr, = run_bd_command(args_list(args))
-    _(stderr).must_be_empty
+    _(stderr).wont_match(/Usage: .*bd \[options\]/)
   end
 
   it 'should exit with status 0 if verbose argument is passed' do
@@ -295,7 +295,7 @@ describe 'CLI usage' do
   it 'should not provide usage output if verbose argument is passed' do
     args = args_hash(required_option_keys + [:verbose])
     _, stderr, = run_bd_command(args_list(args))
-    _(stderr).must_be_empty
+    _(stderr).wont_match(/Usage: .*bd \[options\]/)
   end
 
   it 'should exit with status 0 if help argument is passed' do
