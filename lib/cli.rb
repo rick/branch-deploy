@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'optparse'
+require_relative 'runner'
 
 options = {}
 OptionParser.new do |opts|
@@ -67,3 +68,5 @@ if options[:deploy] && options[:changes]
   warn options[:help]
   exit 1
 end
+
+Runner.new(options).run
