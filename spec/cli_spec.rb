@@ -8,7 +8,7 @@ def options_full
   {
     repo: ['--repo', 'git@github.com:rick/branch-deploy.git'],
     branch: ['--branch', 'main'],
-    host: ['--host', 'example.com'],
+    host: ['--host', 'localhost'],
     local: ['--local'],
     path: ['--path', '/var/www/branch-deploy'],
     changes: ['--changes'],
@@ -24,7 +24,7 @@ def options_brief
   {
     repo: ['-r', 'git@github.com:rick/branch-deploy.git'],
     branch: ['-b', 'main'],
-    host: ['-h', 'example.com'],
+    host: ['-h', 'localhost'],
     local: ['-l'],
     path: ['-p', '/var/www/branch-deploy'],
     changes: ['-c'],
