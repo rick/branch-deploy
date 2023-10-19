@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 require 'shellwords'
+require_relative 'deployer'
 
 # Run deployment commands, either locally or remotely via SSH
 class Runner
-  attr_reader :options
+  attr_reader :deployer, :options
 
   def initialize(options)
     @options = options
+    @deployer = Deployer.new(options)
   end
 
   def debugging?
@@ -33,21 +35,13 @@ class Runner
   end
 
   def run
-    if local?
-      shell('/bin/echo "Hello, world."')
-    else
-      ssh('/bin/echo "Hello, world."')
-    end
+    command = deployer.build
 
-    # TODO: implement the following:
-    #  - both wrappers call the same method, which is constructed by a Deployer
-    #  - Deployer builds a list of commands to run
-    #    - create a secure tempdir (default, unless --temp-path is specified)
-    #    - shallow clone the repo (--repo)
-    #    - checkout the branch (--branch)
-    #    - get a list of files that have changed (if --changes)
-    #    - rsync the files to the target path (--path)
-    #    - remove the tempdir
+    if local?
+      shell(command)
+    else
+      ssh(command)
+    end
   end
 
   def prep_shell_command(cmd)
