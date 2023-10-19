@@ -5,9 +5,6 @@ require 'minitest/autorun'
 require_relative 'spec_helper'
 
 
-# TODO: once we get something actually working internally, we will want a way to only validate arguments
-#       otherwise we will trigger deploys, etc., while just testing args
-
 describe 'CLI usage' do
   before do
     @valid_args_hash = args_hash(required_option_keys)
