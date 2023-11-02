@@ -7,12 +7,7 @@
 
 ROOT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && cd .. && pwd )
 
-for repo in $(ls ${ROOT_DIR}/spec/repo-fixtures/); do
-  if ! [ -d ${ROOT_DIR}/spec/repo-builders/${repo} ]; then
-    echo "No builder for ${repo}! Skipping..."
-    continue
-  fi
-
+for repo in $(ls ${ROOT_DIR}/spec/repo-builders/); do
   if ! [ -f ${ROOT_DIR}/spec/repo-builders/${repo}/build.sh ]; then
     echo "No build.sh for ${repo}! Skipping..."
     continue
