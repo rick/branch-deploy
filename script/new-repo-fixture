@@ -1,0 +1,33 @@
+#!/bin/bash
+
+#
+# Create a new repository fixture by creating the script/repo-builders/$FIXTURE_NAME/build.sh
+# from our template.
+#
+# After updating the build.sh, then script/build-repo-fixtures will build the fixture repo.
+#
+
+ROOT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && cd .. && pwd )
+
+if [ "$#" != "1" ]; then
+  echo "Usage: script/new-repo-fixture <fixture-name>"
+  exit 1
+fi
+
+if [ -d "${ROOT_DIR}/script/repo-builders/$1" ]; then
+  echo "Fixture already exists!"
+  exit 1
+fi
+
+echo "Creating new fixture path: ${ROOT_DIR}/spec/repo-builders/$1"
+mkdir -p "${ROOT_DIR}/spec/repo-builders/$1"
+
+echo "Creating new build.sh: ${ROOT_DIR}/spec/repo-builders/$1/build.sh"
+cp "${ROOT_DIR}/script/template/repo-builder-build.sh" "${ROOT_DIR}/spec/repo-builders/$1/build.sh"
+
+echo
+echo
+
+
+echo "Update ${ROOT_DIR}/spec/repo-builders/$1/build.sh with the commands to create your fixture repo."
+echo "Then run script/build-repo-fixtures to build the fixture repo."
