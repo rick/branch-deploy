@@ -4,54 +4,6 @@ require 'debug'
 require 'minitest/autorun'
 require_relative 'spec_helper'
 
-def options_full
-  {
-    repo: ['--repo', 'git@github.com:rick/branch-deploy.git'],
-    branch: ['--branch', 'main'],
-    host: ['--host', 'localhost'],
-    local: ['--local'],
-    path: ['--path', '/var/www/branch-deploy'],
-    changes: ['--changes'],
-    deploy: ['--deploy'],
-    ssh_options: ['--ssh-options', '-p 2222'],
-    temp_path: ['--temp-path', '/tmp'],
-    verbose: ['--verbose'],
-    help: ['--help']
-  }
-end
-
-def options_brief
-  {
-    repo: ['-r', 'git@github.com:rick/branch-deploy.git'],
-    branch: ['-b', 'main'],
-    host: ['-h', 'localhost'],
-    local: ['-l'],
-    path: ['-p', '/var/www/branch-deploy'],
-    changes: ['-c'],
-    deploy: ['-d'],
-    ssh_options: ['-s', '-p 2222'],
-    temp_path: ['-t', '/tmp'],
-    verbose: ['-v'],
-    help: ['-h']
-  }
-end
-
-def required_option_keys
-  %i[repo branch host path]
-end
-
-def args_hash(keys)
-  keys.map { |k| [options_full[k].first, options_full[k].last] }.to_h
-end
-
-def args_list(hash_args)
-  hash_args.keys.sort.map { |k| [k, hash_args[k]] }.flatten
-end
-
-def to_short_arg(hash_args, key)
-  long_key = options_full[key].first
-  hash_args.except(long_key).merge(options_brief[key].first => options_brief[key].last)
-end
 
 # TODO: once we get something actually working internally, we will want a way to only validate arguments
 #       otherwise we will trigger deploys, etc., while just testing args
